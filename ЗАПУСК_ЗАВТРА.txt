@@ -1,0 +1,19 @@
+CSORT ACADEMY · ДЕМОВЕРСИЯ 0.7
+
+1. Распакуй ZIP в ОТДЕЛЬНУЮ папку (не поверх старой версии с админкой).
+2. VS Code → File → Open Folder → открой распакованную папку.
+3. Терминал: npm.cmd install
+4. Терминал: npm.cmd run dev
+   Для локального просмотра открой адрес из терминала.
+
+ЧТОБЫ ПОКАЗАТЬ КОЛЛЕГАМ БЕЗ СВОЕГО ПК:
+5. VS Code → Source Control → Initialize Repository → Stage All → Commit.
+6. Publish to GitHub → PUBLIC repository, имя csort-academy.
+   Загрузить нужно проект полностью, включая .github/workflows/deploy.yml.
+7. GitHub → Settings → Pages → Source: GitHub Actions.
+8. GitHub → Actions → Publish CSORT Academy demo → зелёный статус (если нет запуска, нажми Run workflow).
+9. Получишь https://твой-логин.github.io/csort-academy/
+
+Всё работает как СТАТИЧЕСКАЯ ДЕМОВЕРСИЯ. Нет сервера авторизации, реальных аккаунтов и общего прогресса.
+Не загружай в публичный репозиторий реальные персональные данные и пароли.
+В архиве текущий логотип PNG; оригинальный SVG можно подставить позже.
