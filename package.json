@@ -1,18 +1,20 @@
+
 {
-  "name": "csort-academy-demo",
+  "name": "csort-academy-cloud",
   "private": true,
-  "version": "0.7.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1",
+    "preview": "vite preview",
     "test": "node --test tests/*.test.js"
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "lucide-react": "^0.468.0"
+    "lucide-react": "^0.468.0",
+    "@supabase/supabase-js": "^2.80.0"
   },
   "devDependencies": {
     "vite": "^6.2.0"
