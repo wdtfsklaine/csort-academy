@@ -1,53 +1,44 @@
-
-name: Publish CSORT Academy demo
-
+name: CSORT ACADEMY · deploy
 on:
   push:
     branches: [main]
   workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
   group: github-pages
   cancel-in-progress: true
-
 jobs:
-  deploy:
+  release:
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
-
-      - name: Build website
+      - run: npm install --no-audit --no-fund
+      - run: npm run test
+      - name: Check cloud variables
+        env:
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          test -n "$VITE_SUPABASE_URL" || (echo 'Missing SUPABASE_URL' && exit 1)
+          test -n "$VITE_SUPABASE_PUBLISHABLE_KEY" || (echo 'Missing SUPABASE_PUBLISHABLE_KEY' && exit 1)
+      - name: Build
         run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
           VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload website
-        uses: actions/upload-pages-artifact@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
-
-      - name: Deploy
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
